@@ -8,36 +8,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from generateGaussian import MVGaussian
+from generateGaussian import MVGaussian, generate_gaussians, plot_gaussians
 from DiffEntClust import clusterGaussians
-
-def generate_gaussians(N,dim):
-  ''' Generate N gaussians of dimension dim '''
-  Gauss = []
-  for _ in xrange(N):
-      g = MVGaussian(dim)
-      Gauss.append(g)
-  return Gauss
-
-def plot_gaussians(Gauss):
-  # Plot the Gaussians
-    init_plot = False
-    fig, ax = plt.subplots()
-    for g in Gauss:
-      g.plotter(ax)
-    plt.xlim([-40.,40.])
-    plt.ylim([-40.,40.])
-    plt.show()
 
 if __name__ == '__main__':
   # Generate a bunch of random multivariate Gaussians
-  ngaussians = 100 # Number of Gaussians
-  nclusters = 4 # number of clusters
+  ngaussians = 1000 # Number of Gaussians
+  nclusters = 6 # number of clusters
   dim = 2 # So we can plot them
   gaussians = generate_gaussians(ngaussians, dim)
-  plot_gaussians(gaussians)
+  #plot_gaussians(gaussians)
 
-  #cluster_centers = clusterGaussians(nclusters, gaussians)
+  cluster_centers = clusterGaussians(nclusters, gaussians)
+  plot_gaussians(gaussians,cluster_centers)
 
 
 

@@ -1,5 +1,42 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from time import sleep
+
+def generate_gaussians(N,dim):
+  ''' Generate N gaussians of dimension dim '''
+  Gauss = []
+  for _ in xrange(N):
+      g = MVGaussian(dim)
+      Gauss.append(g)
+  return Gauss
+
+def plot_gaussians_interactive(Gauss, cluster_centers):
+  # Plot the Gaussians
+    init_plot = False
+    fig, ax = plt.subplots()
+    plt.ion()
+    plt.show()
+    for g in Gauss:
+      g.plotter(ax)
+    for g in cluster_centers:
+      g.plotter(ax,cluster=True)
+    plt.xlim([-40.,40.])
+    plt.ylim([-40.,40.])
+    plt.draw()
+    sleep(0.1)
+
+def plot_gaussians(Gauss, cluster_centers = None):
+  # Plot the Gaussians
+    init_plot = False
+    fig, ax = plt.subplots()
+    for g in Gauss:
+      g.plotter(ax)
+    if cluster_centers is not None:
+      for g in cluster_centers:
+        g.plotter(ax,cluster=True)
+    plt.xlim([-40.,40.])
+    plt.ylim([-40.,40.])
+    plt.show()
 
 class MVGaussian():
   def __init__(self,dim=2):
@@ -10,6 +47,8 @@ class MVGaussian():
     #self.Sigma = np.dot(A,A.T)
     self.Sigma = np.eye(dim)
     self.group = 0 # for clustering purposes
+    self.Sinv  = np.eye(dim) # Holds inv(self.Sigma)
+    self.logdet = 1.0 # Holds log(det(Sinv))
 
   def plotter(self,ax,cluster=False):
     if self.dim >2 :
