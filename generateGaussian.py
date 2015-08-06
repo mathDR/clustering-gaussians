@@ -44,8 +44,8 @@ class MVGaussian():
     self.Mu = np.random.standard_normal(dim)*10
     # Generate a random SPD matrix
     A = np.random.standard_normal((dim,dim))
-    #self.Sigma = np.dot(A,A.T)
-    self.Sigma = np.eye(dim)
+    self.Sigma = np.dot(A,A.T)
+    #self.Sigma = np.eye(dim)
     self.group = 0 # for clustering purposes
     self.Sinv  = np.eye(dim) # Holds inv(self.Sigma)
     self.logdet = 1.0 # Holds log(det(Sinv))

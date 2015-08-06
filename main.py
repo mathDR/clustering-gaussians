@@ -17,7 +17,7 @@ if __name__ == '__main__':
   nclusters = 6 # number of clusters
   dim = 2 # So we can plot them
   gaussians = generate_gaussians(ngaussians, dim)
-  #plot_gaussians(gaussians)
+  plot_gaussians(gaussians)
 
   cluster_centers = clusterGaussians(nclusters, gaussians)
   plot_gaussians(gaussians,cluster_centers)
